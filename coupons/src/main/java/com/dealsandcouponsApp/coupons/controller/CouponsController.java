@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.dealsandcouponsApp.coupons.model.Coupon;
 import com.dealsandcouponsApp.coupons.repository.CouponsRepository;
 
@@ -30,7 +31,14 @@ public class CouponsController {
      @GetMapping(value="/list")
      public List<Coupon> getList(){
     	 
-    	 return couponrepo.findAll();     }
+    	 return couponrepo.findAll(); 
+    	 }
+     @GetMapping("/get/{provider}")
+     public List<Coupon> getByprovider(@PathVariable("provider") String provider){
+    	 return couponrepo.findAllByProvider(provider);
+    	 
+     }
+     
      
      @PostMapping(value="/add")
 	public String addCoupon(@RequestBody Coupon coupon) {

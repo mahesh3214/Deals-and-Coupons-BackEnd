@@ -1,6 +1,7 @@
 package com.dealsand.couponsApp.Customer.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import com.dealsand.couponsApp.Customer.repository.CustomerRepository;
 public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepo;
+	
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -36,7 +38,7 @@ public class CustomerController {
 	    @PostMapping(value = "/add")
 	    public String addCustmer(@RequestBody Customer customer){
 	        customerRepo.save(customer);
-	        return "customer Added Succesfully";
+	        return "customer Added Succesfully"+customer.getFirstName();
 	    }
 	 
 	    @DeleteMapping (value = "/delete/{id}")
@@ -48,8 +50,17 @@ public class CustomerController {
 	    
 	    @PutMapping(value = "/update/{id}")
 	    public String updateUser(@RequestBody Customer customerId, @PathVariable String id){
-	    	customerRepo.save(customerId);
-	        return "customer is Updated Succesfully";
+	    Customer cust = customerRepo.findByid(id);
+	        cust.setId(customerId.getId());
+	    	cust.setFirstName(customerId.getFirstName());
+	    	cust.setLastName(customerId.getLastName());
+	    	cust.setAge(customerId.getAge());
+	    	cust.setEmail(customerId.getEmail());
+	    	cust.setGender(customerId.getGender());
+	    	cust.setUserName(customerId.getUserName());
+	    	cust.setMobileNumber(customerId.getMobileNumber());
+	    	customerRepo.save(cust);
+	    	return "customer is updated :"+cust.getFirstName();	    	
 	    }
 	    @GetMapping("/get")
 	    public String getAllCoupons(){

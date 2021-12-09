@@ -1,4 +1,4 @@
-package com.dealsand.couponsApp.Customer;
+package com.deals.and.couponsApp.company;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class CustomerApplication {
+public class CompanyApplication {
 	@Bean
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
@@ -17,10 +17,7 @@ public class CustomerApplication {
 		}
 
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerApplication.class, args);
+		SpringApplication.run(CompanyApplication.class, args);
 	}
 
-	
-	
-	
 }

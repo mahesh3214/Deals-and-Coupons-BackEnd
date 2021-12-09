@@ -1,5 +1,4 @@
-package com.dealsand.couponsApp.Customer.model;
-
+package com.dealsand.couponsApp.Admin.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

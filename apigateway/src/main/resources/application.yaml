@@ -9,7 +9,8 @@ zuul:  routes:     coupon:
        url:  http://localhost:8083   
      login:
        url:  http://localhost:8084   
-       
+     company:  
+       url: http://localhost:8085
     
 management:  endpoints:    web:      exposure:        include: '*'
   endpoint:    health:      show-details: ALWAYS

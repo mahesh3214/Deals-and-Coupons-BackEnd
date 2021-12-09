@@ -1,20 +1,11 @@
 package com.dealsand.couponsApp.Customer.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.dealsand.couponsApp.Customer.model.Customer;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {
+	
+	Customer findByid(String id);
 
-	void save(String customerId);
-
-
-
-	/*
-	 * Optional<Customer> findById(String id); Customer findByUserName(String
-	 * userName);
-	 */
 }
