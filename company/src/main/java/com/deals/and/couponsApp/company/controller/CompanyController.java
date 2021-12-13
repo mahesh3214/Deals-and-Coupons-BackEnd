@@ -1,9 +1,8 @@
 package com.deals.and.couponsApp.company.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.deals.and.couponsApp.company.model.Companys;
 import com.deals.and.couponsApp.company.model.Coupon;
 import com.deals.and.couponsApp.company.repository.CompanyRepository;
 import com.deals.and.couponsApp.company.repository.CouponsRepository;
+
 
 @RestController
 @RequestMapping("/company")
@@ -45,12 +46,12 @@ public class CompanyController {
     
     @PutMapping("/update/{companyname}")
     public String updateCompany(@PathVariable String companyname,@RequestBody Companys company) {
-    	Companys comp= companyrepo.findByCompanyname(companyname);
+    	Companys comp= companyrepo.findBycompanyname(companyname);		
     	comp.setCompanyname(company.getCompanyname());
     	comp.setUsername(company.getUsername());
     	comp.setPassword(company.getPassword());
-    	companyrepo.save(comp);
-    	return "company updated :"+comp.getCompanyname();
+    	return	"company updated"+companyrepo.save(comp);
+    	
     }
     @DeleteMapping("/delete/{companyname}")
     public String deleteCompany(@PathVariable String companyname) {

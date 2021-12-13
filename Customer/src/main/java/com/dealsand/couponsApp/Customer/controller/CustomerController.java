@@ -1,8 +1,6 @@
 package com.dealsand.couponsApp.Customer.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.dealsand.couponsApp.Customer.exception.CustomerNotFoundException;
 import com.dealsand.couponsApp.Customer.model.Customer;
 import com.dealsand.couponsApp.Customer.repository.CustomerRepository;
 
@@ -36,21 +35,25 @@ public class CustomerController {
 	        return customerRepo.findAll();
 	    }
 	    @PostMapping(value = "/add")
-	    public String addCustmer(@RequestBody Customer customer){
+	    public String addCustomer(@RequestBody Customer customer){
+	    	
 	        customerRepo.save(customer);
 	        return "customer Added Succesfully"+customer.getFirstName();
 	    }
 	 
 	    @DeleteMapping (value = "/delete/{id}")
-	    public String deleteUser(@PathVariable String id) {
+	    public String deleteCustomer(@PathVariable String id) {
+	       customerRepo.findById(id)
+	  			   .orElseThrow(()-> new  CustomerNotFoundException("customer is not found :"+id));
 	        System.out.println("Delete method called");
 	        customerRepo.deleteById(id);
 	        return "Deleted Successfully";
 	    }
 	    
 	    @PutMapping(value = "/update/{id}")
-	    public String updateUser(@RequestBody Customer customerId, @PathVariable String id){
-	    Customer cust = customerRepo.findByid(id);
+	    public Customer updateUser(@RequestBody Customer customerId, @PathVariable String id){
+	   Customer cust= customerRepo.findById(id)
+			   .orElseThrow(()-> new  CustomerNotFoundException("customer is not found :"+id));
 	        cust.setId(customerId.getId());
 	    	cust.setFirstName(customerId.getFirstName());
 	    	cust.setLastName(customerId.getLastName());
@@ -59,8 +62,8 @@ public class CustomerController {
 	    	cust.setGender(customerId.getGender());
 	    	cust.setUserName(customerId.getUserName());
 	    	cust.setMobileNumber(customerId.getMobileNumber());
-	    	customerRepo.save(cust);
-	    	return "customer is updated :"+cust.getFirstName();	    	
+	    	return customerRepo.save(cust);
+	    	    	
 	    }
 	    @GetMapping("/get")
 	    public String getAllCoupons(){

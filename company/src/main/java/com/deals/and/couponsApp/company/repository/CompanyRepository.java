@@ -12,7 +12,13 @@ public interface CompanyRepository extends MongoRepository<Companys, String> {
 
 	void deleteByCompanyname(String companyname);
 
-	Companys findByCompanyname(String companyname);
+	
+
+
+
+
+
+	Companys findBycompanyname(String companyname);
 
 
 

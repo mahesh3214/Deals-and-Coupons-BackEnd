@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import com.dealsandcouponsApp.coupons.exception.CouponsNotFoundException;
 import com.dealsandcouponsApp.coupons.model.Coupon;
 import com.dealsandcouponsApp.coupons.repository.CouponsRepository;
 
@@ -43,12 +44,13 @@ public class CouponsController {
      @PostMapping(value="/add")
 	public String addCoupon(@RequestBody Coupon coupon) {
 		couponrepo.save(coupon);
-		return "Coupon is Added";
+		return "Coupon is Added"+coupon;
 		
 	}
 	@PutMapping("/update/{id}")
 	public String getById(@PathVariable String id, @RequestBody Coupon coupon) {
-		Coupon couponid=couponrepo.findById(id).get();
+		Coupon couponid=couponrepo.findById(id)
+				.orElseThrow(()-> new  CouponsNotFoundException("coupons is not found :"+id));
 		couponid.setProvider(coupon.getProvider());
 		couponid.setCode(coupon.getCode());
 		couponid.setCategory(coupon.getCategory() );
@@ -59,8 +61,10 @@ public class CouponsController {
 		}
 		@DeleteMapping("/delete/{id}")
 		public String deleteById(@PathVariable String id) {
+			couponrepo.findById(id)
+			.orElseThrow(()-> new  CouponsNotFoundException("coupons is not found :"+id));
 			couponrepo.deleteById(id);
-	return "deleted succefully";
+	return "deleted succefully"+id;
 	}
 	
 	
