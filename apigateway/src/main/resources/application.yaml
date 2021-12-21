@@ -1,16 +1,17 @@
 server:
   port: 8001
 
+
 zuul:  routes:     coupon:
-       url: http://localhost:8081
+       url: http://localhost:8081/coupon/
      admin :
-       url: http://localhost:8082
-     customer:
-       url:  http://localhost:8083   
+       url: http://localhost:8082/admin/
+     users:
+       url:  http://localhost:8083/users/   
      login:
        url:  http://localhost:8084   
      company:  
-       url: http://localhost:8085
+       url: http://localhost:8085/company/
     
 management:  endpoints:    web:      exposure:        include: '*'
   endpoint:    health:      show-details: ALWAYS
