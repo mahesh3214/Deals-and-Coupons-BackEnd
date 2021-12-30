@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
 import com.dealsand.couponsApp.Admin.AdminRepository.AdminRepository;
+import com.dealsand.couponsApp.Admin.AdminRepository.CouponsRepository;
 import com.dealsand.couponsApp.Admin.controller.AdminController;
 import com.dealsand.couponsApp.Admin.model.Admin;
 
@@ -19,43 +21,36 @@ import com.dealsand.couponsApp.Admin.model.Admin;
 class AdminApplicationTests {
 
 	@MockBean
-    AdminRepository adminrepos;
-    @Autowired
+	AdminRepository adminrepos;
+	@Autowired
 	AdminController admincontroll;
-	
-	
-
+	@Autowired
+	CouponsRepository cop;
 
 	@Test
-    public void getAllAdminTest() {
-        when(adminrepos.findAll()).thenReturn(
-                Stream.of(
-                                new  Admin(" ","amazon", "mobiles@gamil.com", "1234578"))
-                        .collect(Collectors.toList()));
-        assertEquals(1,admincontroll. getAllAdmins().size());
+	public void getAllAdminTest() {
+		when(adminrepos.findAll())
+				.thenReturn(Stream.of(new Admin(" 1", "amazon", "mobilescom", "1234578")).collect(Collectors.toList()));
+		assertEquals(1, admincontroll.getAllAdmins().size());
 
-    }
+	}
 
-    @Test
-    public void addAdminTest() {
-    	Admin ad = new  Admin(" ","amazon", "mobiles@gamil.com", "1234578");
-        when(adminrepos.save(ad)).thenReturn(ad);
-        assertEquals("Admin is created :"+ad.getName(), admincontroll.addAdmin(ad));
-    }
-    
-    
+	@Test
+	public void addAdminTest() {
+		Admin ad = new Admin(" 1", "amazon", "mobilescom", "1234578");
+		when(adminrepos.save(ad)).thenReturn(ad);
+		assertEquals("Admin is created :" + ad.getName(), admincontroll.addAdmin(ad));
+	}
 
-    @Test
-    public void deleteAdminTest() {
+	@Test
+	public void deleteAdminTest() {
 
-        String id = "1";
+		String id = "1";
 
-        Admin ad= new Admin("1","amazon", "mobiles@gamil.com", "1234578");
-        adminrepos.deleteById(id);
-        verify(adminrepos).deleteById(id);
+		Admin ad = new Admin("1", "amazon", "mobiles@gamil.com", "1234578");
+		adminrepos.deleteById(id);
+		verify(adminrepos).deleteById(id);
 
-
-    }
-
+	}
 
 }

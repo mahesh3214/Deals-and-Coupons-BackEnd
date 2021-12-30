@@ -8,8 +8,6 @@ zuul:  routes:     coupon:
        url: http://localhost:8082/admin/
      users:
        url:  http://localhost:8083/users/   
-     login:
-       url:  http://localhost:8084   
      company:  
        url: http://localhost:8085/company/
     

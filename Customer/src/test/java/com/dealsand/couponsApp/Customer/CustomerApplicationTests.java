@@ -7,58 +7,47 @@ import static org.mockito.Mockito.when;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-
 import com.dealsand.couponsApp.Customer.controller.CustomerController;
 import com.dealsand.couponsApp.Customer.model.Customer;
 import com.dealsand.couponsApp.Customer.repository.CustomerRepository;
+
 @SpringBootTest
 class CustomerApplicationTests {
-	 @MockBean
-	 CustomerRepository customerRepository;
+	@MockBean
+	CustomerRepository customerRepository;
 
-	    @Autowired
-	    CustomerController customerController;
-
-		
+	@Autowired
+	CustomerController customerController;
 
 	@Test
-	
-    public void getAllCustomersTest() {
-        when(customerRepository.findAll()).thenReturn(
-                Stream.of(
-                                new Customer("", "amazon", "amaz12", "mobiles@gamil.com", "1234578","male","25","amaze","1234"))
-                        .collect(Collectors.toList()));
-        assertEquals(1,customerController. getAllCustomers().size());
+	public void getAllCustomersTest() {
+		when(customerRepository.findAll())
+				.thenReturn(Stream.of(new Customer("1", "amazon", "amaze", "1234")).collect(Collectors.toList()));
+		assertEquals(1, customerController.getAllCustomers().size());
 
-    }
+	}
 
-    @Test
-   
-    public void addCustomerTest() {
-        Customer cust = new  Customer("", "amazon", "amaz12", "mobiles@gamil.com", "1234578","male","25","amaze","1234");
-        when(customerRepository.save(cust)).thenReturn(cust);
-        assertEquals("customer Added Succesfully"+cust.getFirstName(),  customerController.addCustomer(cust));
-    }
-    
-    
-    
-    
+	@Test
 
-    @Test
-    public void deleteCustomerTest() {
+	public void addCustomerTest() {
+		Customer cust = new Customer("1", "amazon", "amaze", "1234");
+		when(customerRepository.save(cust)).thenReturn(cust);
+		assertEquals("customer Added Succesfully" + cust.getName(), customerController.addCustomer(cust));
+	}
 
-        String customerId = "1";
+	@Test
+	public void deleteCustomerTest() {
 
-        Customer cust= new Customer("1", "amazon", "amaz12", "mobiles@gamil.com", "1234578","male","25","amaze","1234");
-        customerRepository.deleteById(customerId);
-        verify(customerRepository).deleteById(customerId);
+		String customerId = "1";
 
+		Customer cust = new Customer("1", "amazon", "amaze", "1234");
+		customerRepository.deleteById(customerId);
+		verify(customerRepository).deleteById(customerId);
 
-    }
+	}
 }

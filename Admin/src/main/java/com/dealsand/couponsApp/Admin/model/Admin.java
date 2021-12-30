@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Document(collection="admindata")
+@Document(collection = "admindata")
 public class Admin {
 
 	@Id
@@ -14,13 +14,13 @@ public class Admin {
 	private String username;
 	@JsonIgnore
 	private String password;
-	
+
 	public Admin() {
-		
+
 	}
-	
-	public Admin(String id ,String name, String username, String password) {
-		this.id=id;
+
+	public Admin(String id, String name, String username, String password) {
+		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -33,6 +33,7 @@ public class Admin {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -56,8 +57,5 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	
+
 }

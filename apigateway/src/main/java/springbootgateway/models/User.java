@@ -1,32 +1,32 @@
-package com.dealsand.couponsApp.Customer.model;
+package springbootgateway.models;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Document(collection = "customer")
-public class Customer {
-
+@Document(collection = "users")
+public class User {
 	@Id
 	private String id;
-	private String name;
-
 	private String username;
-	@JsonIgnore
+	private String name;
 	private String password;
 
-	public Customer() {
+	@DBRef
+	private Set<Role> roles = new HashSet<>();
 
+	public User() {
 	}
 
-	public Customer(String id, String name, String username, String password) {
-		super();
-		this.id = id;
-		this.name = name;
+	public User(String username, String name, String password) {
 
 		this.username = username;
+		this.name = name;
 		this.password = password;
+
 	}
 
 	public String getId() {
@@ -37,20 +37,20 @@ public class Customer {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {
@@ -61,4 +61,11 @@ public class Customer {
 		this.password = password;
 	}
 
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 }
